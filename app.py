@@ -1,12 +1,15 @@
 # save this as app.py
 from flask import Flask, request, render_template, request
 import pickle
+import bz2file as bz2 
 import requests
 import pandas as pd
 from patsy import dmatrices
 
 movies = pickle.load(open('model/movies_list.pkl', 'rb'))
-similarity = pickle.load(open('model/similarity.pkl', 'rb'))
+
+similarity = pickle.load(bz2.BZ2File('model/similarity.pkl', 'rb'))
+
 
 def fetch_poster(movie_id):
     url = 'https://api.themoviedb.org/3/movie/{}?api_key=b9093ccf3b2dedc32dd29d4b0b0bd00c&language=en-US'.format(movie_id)
